@@ -2,11 +2,6 @@
     <v-app>
         <TopBar/>
         <v-main class="picture">
-            <v-banner v-if="usingApp && store.reauthenticate" lines="one" class="bg-warning" text="One or more of your accounts needs to be reauthenticated to continue updating.">
-                <template v-slot:actions>
-                    <PlaidLink update="true"></PlaidLink>
-                </template>
-            </v-banner>
             <router-view/>
             <v-snackbar v-model="showNotification" :color="store.notification.color" transition="slide-y-transition" timeout="3000">{{ store.notification.text }}</v-snackbar>
         </v-main>

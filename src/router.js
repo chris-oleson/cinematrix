@@ -4,6 +4,7 @@ import Home from '/src/views/Home'
 import Login from '/src/views/Login'
 import SignUp from '/src/views/SignUp'
 import Search from '/src/views/Search'
+import Movie from '/src/views/Movie'
 import { useStore } from '/src/pinia'
 
 export const router = createRouter({
@@ -43,6 +44,13 @@ export const router = createRouter({
             component: Search,
             meta: {
                 title: 'Search'
+            }
+        },
+        {
+            path: '/movie/:id',
+            component: Movie,
+            meta: {
+                title: 'Movie'
             }
         },
     ]

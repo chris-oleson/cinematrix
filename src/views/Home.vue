@@ -19,8 +19,8 @@ function search() {
 </script>
 
 <style scoped>
-    .container {
-        height: 80%;
-        align-content: center;
-    }
+.container {
+    height: 80%;
+    align-content: center;
+}
 </style>
