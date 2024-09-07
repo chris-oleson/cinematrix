@@ -35,21 +35,23 @@ onMounted(() => {
     }
 })
 
-function login() {
+async function login() {
     loading.value = true
     error.value = false
-    axios.post('/auth/login', {
-        name: username.value,
-        password: password.value,
-    }).then(async (resp) => {
+    try {
+        const resp = await axios.post('/auth/login', {
+            name: username.value,
+            password: password.value,
+        })
         store.favorites = resp.data
         store.isLoggedIn = true
-        router.push('/favorites')
-    }).catch((err) => {
+        router.push('/favorites?p=1')
+    }
+    catch(err) {
         error.value = true
         errorMessage.value = err.response.data
         loading.value = false
-    })
+    }
 }
 </script>
 

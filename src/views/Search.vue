@@ -1,30 +1,47 @@
 <template>
-    <div class="text-center mx-4">
-        <v-text-field v-model="query" density="compact" variant="solo" theme="light" hide-details label="Search movies" append-inner-icon="mdi-magnify" style="box-shadow: 3px 3px 8px black;" @keyup.enter="search" @click:append-inner="search" class="mx-auto" max-width="800px"></v-text-field>
+    <div class="text-center ma-8">
+        <v-text-field v-model="query" variant="solo" theme="light" hide-details label="Search movies" append-inner-icon="mdi-magnify" style="box-shadow: 3px 3px 8px black;" @keyup.enter="search(1)" @click:append-inner="search(1)" class="mx-auto" max-width="700px"></v-text-field>
     </div>
-    <div class="ma-16 d-flex">
-        <div v-for="movie in store.apiResponse" v-bind:key="movie" class="ma-4" style="max-width: 150px">
-            <img :src=movie.Poster width="100%" draggable="false" class="poster" @click="router.push('/movie/' + movie.imdbID)">
+    <div class="mx-8 d-flex flex-wrap">
+        <div v-for="(movie, i) in results.Search" v-bind:key="i" class="ma-4" style="max-width: 150px">
+            <img :src="movie.Poster == 'N/A' ? '/src/assets/unavailable.png' : movie.Poster" width="100%" draggable="false" class="poster" @click="router.push('/movie/' + movie.imdbID)">
             <div class="text-center shadow">{{ movie.Title }} ({{ movie.Year }})</div>
         </div>
+    </div>
+    <div v-if="results.Search != null" class="d-flex justify-center align-center ma-8">
+        <v-btn variant="plain" icon="mdi-menu-left" :disabled="route.query.p == 1" @click="search(parseInt(route.query.p) - 1)"></v-btn>
+        <div class="font-weight-light">Page {{ route.query.p }}</div>
+        <v-btn variant="plain" icon="mdi-menu-right" :disabled="parseInt(results.totalResults) / parseInt(route.query.p) < 10" @click="search(parseInt(route.query.p) + 1)"></v-btn>
     </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useStore } from '/src/pinia'
-const store = useStore()
+import { ref, watch } from 'vue'
+import axios from 'axios'
 import { useRoute, useRouter } from 'vue-router'
 const route = useRoute()
 const router = useRouter()
 
 const query = ref(route.query.q)
+const results = ref({})
+
 if (route.query.q) {
-    search()
+    search(route.query.p)
 }
 
-function search() {
-    router.push('/search?q=' + query.value)
+watch(() => route.fullPath, () => {
+    search(route.query.p)
+})
+
+async function search(pageNumber) {
+    router.push(`search?q=${query.value}&p=${pageNumber}`)
+    const resp = await axios.get('omdb/search', {
+        params: {
+            query: route.query.q,
+            page: pageNumber
+        }
+    })
+    results.value = resp.data
 }
 </script>
 

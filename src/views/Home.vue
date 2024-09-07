@@ -17,7 +17,7 @@ const router = useRouter()
 const query = ref('')
 
 function search() {
-    router.push('/search?q=' + query.value)
+    router.push(`/search?q=${query.value}&p=1`)
 }
 </script>
 
