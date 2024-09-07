@@ -1,17 +1,16 @@
 <template>
-    <v-card class="pa-10 mx-auto my-10 text-center" width="330">
-        <img src="/src/assets/logo.png" height="50" width="50" alt="VuFi logo"/>
+    <div class="mx-auto text-center container" style="width:300px">
         <v-progress-circular v-if="loading" class="mt-4 mx-auto d-block" indeterminate></v-progress-circular>
         <v-card-text v-else-if="error && route.query.t" class="text-error pa-0 mt-4">{{ errorMessage }}</v-card-text>
         <template v-else>
             <v-text-field id="email" variant="underlined" label="Email" v-model="email" :error="error"/>
             <v-text-field :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'" variant="underlined" label="Password" :type="showPassword ? 'text' : 'password'" v-model="password" :error="error" @click:append="showPassword = !showPassword" @keyup.enter="login"/>
             <v-card-text v-if="error" class="text-error pa-0">{{ errorMessage }}</v-card-text>
-            <v-btn width="200" rounded="0" class="bg-primary mt-4" @click="login">Log In</v-btn>
+            <v-btn width="200" rounded="0" variant="outlined" class="bg-transparent mt-4" @click="login">Log In</v-btn>
             <v-btn v-if="errorMessage == 'This account has not been verified'" width="200" size="small" variant="plain" class="font-weight-light mt-4" @click="resend">Resend Verification</v-btn>
             <v-btn width="200" size="small" variant="plain" class="mt-4 font-weight-light" :to="'/forgot-password?e=' + email">Forgot Password</v-btn>
         </template>
-    </v-card>
+    </div>
 </template>
 
 <script setup>
@@ -97,3 +96,10 @@ function resend() {
     })
 }
 </script>
+
+<style scoped>
+.container {
+    height: 80%;
+    align-content: center;
+}
+</style>

@@ -2,18 +2,18 @@
     <v-app-bar flat class="bg-transparent">
         <router-link v-if="route.path != '/'" class="mx-4 d-inline-flex align-center" to="/">
             <img src="/src/assets/logo.png" height="40" width="40" alt="Cinematrix logo"/>
-            <h2 class="font-weight-light ml-2">Cinematrix</h2>
+            <h2 class="font-weight-light ml-2 shadow">Cinematrix</h2>
         </router-link>
 
         <v-spacer/>
 
         <!-- Desktop display -->
         <template v-if="!xs">
-            <v-btn class="font-weight-light" variant="plain" to="/">Home</v-btn>
-            <v-btn class="font-weight-light" variant="plain" to="/search">Search</v-btn>
-            <v-btn v-if="store.isLoggedIn" class="font-weight-light mr-4" variant="plain" to="/my-movies">My Movies</v-btn>
-            <v-btn v-if="!store.isLoggedIn" class="font-weight-light" variant="plain" to="/login">Log In</v-btn>
-            <v-btn v-if="!store.isLoggedIn"class="font-weight-light mr-4" variant="plain" to="/signup">Sign Up</v-btn>
+            <v-btn class="font-weight-light shadow" variant="plain" to="/">Home</v-btn>
+            <v-btn class="font-weight-light shadow" variant="plain" to="/search">Search</v-btn>
+            <v-btn v-if="store.isLoggedIn" class="font-weight-light mr-4 shadow" variant="plain" to="/my-movies">My Movies</v-btn>
+            <v-btn v-if="!store.isLoggedIn" class="font-weight-light shadow" variant="plain" to="/login">Log In</v-btn>
+            <v-btn v-if="!store.isLoggedIn"class="font-weight-light mr-4 shadow" variant="plain" to="/signup">Sign Up</v-btn>
         </template>
 
         <!-- Mobile display -->

@@ -49,19 +49,3 @@ function search() {
     router.push('/search?q=' + query.value)
 }
 </script>
-
-<style scoped>
-.shadow {
-    text-shadow: 3px 3px 8px black;
-}
-
-.poster {
-    transition-duration: 200ms;
-    box-shadow: 3px 3px 8px black;
-    
-    &:hover {
-        transform: scale(1.05);
-        box-shadow: 6px 6px 16px black;
-    }
-}
-</style>

@@ -38,4 +38,8 @@ a {
     background-image: url('/src/assets/background.jpg');
     background-size: cover;
 }
+
+.shadow {
+    text-shadow: 3px 3px 8px black;
+}
 </style>
