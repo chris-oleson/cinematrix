@@ -1,12 +1,12 @@
 <template>
-    <div class="ma-4 d-flex">
+    <div class="mx-4 my-16 d-flex flex-wrap justify-center">
         <img :src="store.apiResponse[0].Poster" class="ma-4" style="box-shadow: 3px 3px 8px black;">
         <div class="ma-4 shadow" style="width: 700px;">
             <div class="d-flex">
                 <h1>{{ store.apiResponse[0].Title }} ({{ store.apiResponse[0].Year }})</h1>
                 <v-tooltip :text="favorite ? 'Remove from favorites' : 'Add to favorites'">
                     <template v-slot:activator="{ props }">
-                        <v-btn v-bind="props" :icon="favorite ? 'mdi-star' : 'mdi-star-outline'" variant="plain" @click="favorite = !favorite"></v-btn>
+                        <v-btn v-bind="props" :icon="favorite ? 'mdi-star' : 'mdi-star-outline'" variant="plain" @click="favoriteClick()"></v-btn>
                     </template>
                 </v-tooltip>
             </div>
@@ -52,4 +52,13 @@ function search() {
 }
 
 const favorite = ref(false)
+
+function favoriteClick() {
+    if (favorite.value) {
+        favorite.value = false
+    }
+    else {
+        favorite.value = true
+    }
+}
 </script>
