@@ -15,6 +15,9 @@
         "vue-router": "4.4.3",
         "vuetify": "3.7.0"
     },
+    "optionalDependencies": {
+        "@rollup/rollup-linux-x64-gnu": "4.6.1"
+    },
     "devDependencies": {
         "@eslint/js": "^9.10.0",
         "@mdi/font": "7.4.47",
