@@ -10,12 +10,14 @@
 
 <script setup>
 import { ref, watch } from 'vue'
+import axios from 'axios'
 import { useStore } from '/src/pinia'
 const store = useStore()
 import { useTheme } from 'vuetify'
 const theme = useTheme()
 import TopBar from '/src/components/TopBar'
 
+axios.post('auth/wakeup')
 theme.global.name.value = 'dark'
 
 // Handling notifications

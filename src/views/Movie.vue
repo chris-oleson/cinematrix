@@ -4,9 +4,11 @@
         <div class="ma-4 shadow" style="width: 700px;">
             <div class="d-flex">
                 <h1>{{ store.apiResponse[0].Title }} ({{ store.apiResponse[0].Year }})</h1>
-                <v-tooltip :text="favorite ? 'Remove from favorites' : 'Add to favorites'">
+                <v-tooltip :text="getTooltip()" content-class="bg-transparent" offset="0">
                     <template v-slot:activator="{ props }">
-                        <v-btn v-bind="props" :icon="favorite ? 'mdi-star' : 'mdi-star-outline'" variant="plain" @click="favoriteClick()"></v-btn>
+                        <div v-bind="props">
+                            <v-btn :icon="favorite ? 'mdi-star' : 'mdi-star-outline'" variant="plain" :disabled="!store.isLoggedIn" @click="favoriteClick()"></v-btn>
+                        </div>
                     </template>
                 </v-tooltip>
             </div>
@@ -35,7 +37,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useStore } from '/src/pinia'
 const store = useStore()
 import { useRoute, useRouter } from 'vue-router'
@@ -59,6 +61,20 @@ function favoriteClick() {
     }
     else {
         favorite.value = true
+    }
+}
+
+const getTooltip = () => {
+    if (store.isLoggedIn) {
+        if (favorite.value) {
+            return 'Remove from favorites'
+        }
+        else {
+            return 'Add to favorites'
+        }
+    }
+    else {
+        return 'Log in to add to favorites'
     }
 }
 </script>

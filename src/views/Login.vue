@@ -3,12 +3,12 @@
         <v-progress-circular v-if="loading" class="mt-4 mx-auto d-block" indeterminate></v-progress-circular>
         <v-card-text v-else-if="error && route.query.t" class="text-error pa-0 mt-4">{{ errorMessage }}</v-card-text>
         <template v-else>
-            <v-text-field id="email" variant="underlined" label="Email" v-model="email" :error="error"/>
+            <v-text-field id="username" variant="underlined" label="Username" v-model="username" :error="error"/>
             <v-text-field :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'" variant="underlined" label="Password" :type="showPassword ? 'text' : 'password'" v-model="password" :error="error" @click:append="showPassword = !showPassword" @keyup.enter="login"/>
             <v-card-text v-if="error" class="text-error pa-0">{{ errorMessage }}</v-card-text>
             <v-btn width="200" rounded="0" variant="outlined" class="bg-transparent mt-4" @click="login">Log In</v-btn>
             <v-btn v-if="errorMessage == 'This account has not been verified'" width="200" size="small" variant="plain" class="font-weight-light mt-4" @click="resend">Resend Verification</v-btn>
-            <v-btn width="200" size="small" variant="plain" class="mt-4 font-weight-light" :to="'/forgot-password?e=' + email">Forgot Password</v-btn>
+            <v-btn width="200" size="small" variant="plain" class="mt-4 font-weight-light" :to="'/forgot-password?e=' + username">Forgot Password</v-btn>
         </template>
     </div>
 </template>
@@ -22,7 +22,7 @@ import { useRouter, useRoute } from 'vue-router'
 const router = useRouter()
 const route = useRoute()
 
-const email = ref('')
+const username = ref('')
 const password = ref('')
 const showPassword = ref(false)
 const error = ref(false)
@@ -34,8 +34,8 @@ if (route.query.t) {
 }
 
 onMounted(() => {
-    if (document.getElementById('email')) {
-        document.getElementById('email').focus()
+    if (document.getElementById('username')) {
+        document.getElementById('username').focus()
     }
 })
 
@@ -43,56 +43,16 @@ function login() {
     loading.value = true
     error.value = false
     axios.post('/auth/login', {
-        email: email.value,
+        name: username.value,
         password: password.value,
     }).then(async (resp) => {
-        store.currency = resp.data.currency
-        store.theme = resp.data.theme
-        await store.getAllAssetData()
-        store.subscriptionStatus = resp.data.subscription_status
-        store.reauthenticate = resp.data.reauthenticate
-        store.name = resp.data.name
-        store.isLoggedIn = true
-        router.push('/assets')
-    }).catch((err) => {
-        error.value = true
-        errorMessage.value = err.response.data
-        loading.value = false
-    })
-}
-
-function verify() {
-    loading.value = true
-    axios.post('/auth/verify', {
-        token: route.query.t,
-        email: route.query.e
-    }).then((resp) => {
-        store.isLoggedIn = true
-        store.getAllAssetData()
         store.name = resp.data
-        store.notification = {
-            text: "Successfully verified email!",
-            color: "primary"
-        }
-        router.push('/assets')
+        store.isLoggedIn = true
+        router.push('/my-movies')
     }).catch((err) => {
         error.value = true
         errorMessage.value = err.response.data
         loading.value = false
-    })
-}
-
-function resend() {
-    axios.post('/auth/resend', {
-        email: email.value
-    }).then(() => {
-        store.notification = {
-            text: "Resent email verification",
-            color: "primary"
-        }
-    }).catch((err) => {
-        error.value = true
-        errorMessage.value = err.response.data
     })
 }
 </script>

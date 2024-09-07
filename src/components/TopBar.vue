@@ -11,7 +11,8 @@
         <template v-if="!xs">
             <v-btn class="font-weight-light shadow" variant="plain" to="/">Home</v-btn>
             <v-btn class="font-weight-light shadow" variant="plain" to="/search">Search</v-btn>
-            <v-btn v-if="store.isLoggedIn" class="font-weight-light mr-4 shadow" variant="plain" to="/my-movies">My Movies</v-btn>
+            <v-btn v-if="store.isLoggedIn" class="font-weight-light shadow" variant="plain" to="/my-movies">My Movies</v-btn>
+            <v-btn v-if="store.isLoggedIn" class="font-weight-light mr-4 shadow" variant="plain" @click="logOut()">Log Out</v-btn>
             <v-btn v-if="!store.isLoggedIn" class="font-weight-light shadow" variant="plain" to="/login">Log In</v-btn>
             <v-btn v-if="!store.isLoggedIn"class="font-weight-light mr-4 shadow" variant="plain" to="/signup">Sign Up</v-btn>
         </template>
@@ -33,10 +34,19 @@
 </template>
 
 <script setup>
+import axios from 'axios'
 import { useStore } from '/src/pinia'
 const store = useStore()
 import { useDisplay } from 'vuetify'
 const { xs } = useDisplay()
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 const route = useRoute()
+const router = useRouter()
+
+function logOut() {
+    axios.post('auth/logout').then(() => {
+        router.push('/')
+        store.$reset()
+    })
+}
 </script>
