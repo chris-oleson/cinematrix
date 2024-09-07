@@ -25,7 +25,8 @@
             <v-list class="font-weight-light pa-0 bg-white" width="200">
                 <v-list-item to="/">Home</v-list-item>
                 <v-list-item to="/search">Search</v-list-item>
-                <v-list-item v-if="!store.isLoggedIn" to="/my-movies">My Movies</v-list-item>
+                <v-list-item v-if="store.isLoggedIn" to="/favorites?p=1">Favorites</v-list-item>
+                <v-list-item v-if="store.isLoggedIn" @click="logOut()">Log Out</v-list-item>
                 <v-list-item v-if="!store.isLoggedIn" to="/login">Log In</v-list-item>
                 <v-list-item v-if="!store.isLoggedIn" to="/signup">Sign Up</v-list-item>
             </v-list>

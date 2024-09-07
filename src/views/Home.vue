@@ -25,5 +25,6 @@ function search() {
 .container {
     height: 80%;
     align-content: center;
+    -webkit-align-content: center;
 }
 </style>
