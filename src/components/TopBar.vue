@@ -11,10 +11,10 @@
         <template v-if="!xs">
             <v-btn class="font-weight-light shadow" variant="plain" to="/">Home</v-btn>
             <v-btn class="font-weight-light shadow" variant="plain" to="/search">Search</v-btn>
-            <v-btn v-if="store.isLoggedIn" class="font-weight-light shadow" variant="plain" to="/my-movies">My Movies</v-btn>
+            <v-btn v-if="store.isLoggedIn" class="font-weight-light shadow" variant="plain" to="/favorites">Favorites</v-btn>
             <v-btn v-if="store.isLoggedIn" class="font-weight-light mr-4 shadow" variant="plain" @click="logOut()">Log Out</v-btn>
             <v-btn v-if="!store.isLoggedIn" class="font-weight-light shadow" variant="plain" to="/login">Log In</v-btn>
-            <v-btn v-if="!store.isLoggedIn"class="font-weight-light mr-4 shadow" variant="plain" to="/signup">Sign Up</v-btn>
+            <v-btn v-if="!store.isLoggedIn" class="font-weight-light mr-4 shadow" variant="plain" to="/signup">Sign Up</v-btn>
         </template>
 
         <!-- Mobile display -->
@@ -22,7 +22,7 @@
             <template v-slot:activator="{ props }">
                 <v-btn icon="mdi-menu" class="mr-2" v-bind="props"/>
             </template>
-            <v-list class="font-weight-light pa-0" width="200">
+            <v-list class="font-weight-light pa-0 bg-white" width="200">
                 <v-list-item to="/">Home</v-list-item>
                 <v-list-item to="/search">Search</v-list-item>
                 <v-list-item v-if="!store.isLoggedIn" to="/my-movies">My Movies</v-list-item>

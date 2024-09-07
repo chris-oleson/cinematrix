@@ -3,7 +3,7 @@
         <v-text-field v-model="query" density="compact" variant="solo" theme="light" hide-details label="Search movies" append-inner-icon="mdi-magnify" style="box-shadow: 3px 3px 8px black;" @keyup.enter="search" @click:append-inner="search" class="mx-auto" max-width="800px"></v-text-field>
     </div>
     <div class="ma-16 d-flex">
-        <div v-for="movie in store.apiResponse" class="ma-4" style="max-width: 150px">
+        <div v-for="movie in store.apiResponse" v-bind:key="movie" class="ma-4" style="max-width: 150px">
             <img :src=movie.Poster width="100%" draggable="false" class="poster" @click="router.push('/movie/' + movie.imdbID)">
             <div class="text-center shadow">{{ movie.Title }} ({{ movie.Year }})</div>
         </div>

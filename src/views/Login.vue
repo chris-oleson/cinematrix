@@ -29,10 +29,6 @@ const error = ref(false)
 const errorMessage = ref('')
 const loading = ref(false)
 
-if (route.query.t) {
-    verify()
-}
-
 onMounted(() => {
     if (document.getElementById('username')) {
         document.getElementById('username').focus()
@@ -46,9 +42,9 @@ function login() {
         name: username.value,
         password: password.value,
     }).then(async (resp) => {
-        store.name = resp.data
+        store.favorites = resp.data
         store.isLoggedIn = true
-        router.push('/my-movies')
+        router.push('/favorites')
     }).catch((err) => {
         error.value = true
         errorMessage.value = err.response.data

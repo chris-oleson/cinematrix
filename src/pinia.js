@@ -2,12 +2,8 @@ import { defineStore } from 'pinia'
 
 export const useStore = defineStore('store', {
     state: () => ({
-        name: '',
         isLoggedIn: false,
-        notification: {
-            text: '',
-            color: ''
-        },
+        favorites: [],
 
         apiResponse: [{
             "Title":"Dune",

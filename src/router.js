@@ -4,6 +4,7 @@ import Home from '/src/views/Home'
 import Login from '/src/views/Login'
 import SignUp from '/src/views/SignUp'
 import Search from '/src/views/Search'
+import Favorites from '/src/views/Favorites'
 import Movie from '/src/views/Movie'
 import { useStore } from '/src/pinia'
 
@@ -44,6 +45,14 @@ export const router = createRouter({
             component: Search,
             meta: {
                 title: 'Search'
+            }
+        },
+        {
+            path: '/favorites',
+            beforeEnter: rejectUnauthorized,
+            component: Favorites,
+            meta: {
+                title: 'My Movies'
             }
         },
         {
