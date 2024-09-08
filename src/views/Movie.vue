@@ -1,6 +1,6 @@
 <template>
     <div class="mx-4 my-16 d-flex flex-wrap justify-center">
-        <img :src="movie.Poster == 'N/A' ? '/src/assets/unavailable.png' : movie.Poster" class="ma-4" style="box-shadow: 3px 3px 8px black; max-width:300px">
+        <img :src="movie.Poster == 'N/A' ? noImage : movie.Poster" class="ma-4" style="box-shadow: 3px 3px 8px black; max-width:300px">
         <div class="ma-4 shadow">
             <div class="d-flex">
                 <h1>{{ movie.Title }} ({{ movie.Year }})</h1>
@@ -38,6 +38,7 @@
 </template>
 
 <script setup>
+import noImage from '/src/assets/unavailable.png'
 import { ref, computed } from 'vue'
 import axios from 'axios'
 import { useStore } from '/src/pinia'

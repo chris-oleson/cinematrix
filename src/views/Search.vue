@@ -4,7 +4,7 @@
     </div>
     <div class="mx-8 d-flex flex-wrap">
         <div v-for="(movie, i) in results.Search" v-bind:key="i" class="ma-4" style="max-width: 150px">
-            <img :src="movie.Poster == 'N/A' ? '/src/assets/unavailable.png' : movie.Poster" width="100%" draggable="false" class="poster" @click="router.push('/movie/' + movie.imdbID)">
+            <img :src="movie.Poster == 'N/A' ? noImage : movie.Poster" width="100%" draggable="false" class="poster" @click="router.push('/movie/' + movie.imdbID)">
             <div class="text-center shadow">{{ movie.Title }} ({{ movie.Year }})</div>
         </div>
     </div>
@@ -16,6 +16,7 @@
 </template>
 
 <script setup>
+import noImage from '/src/assets/unavailable.png'
 import { ref, watch } from 'vue'
 import axios from 'axios'
 import { useRoute, useRouter } from 'vue-router'
