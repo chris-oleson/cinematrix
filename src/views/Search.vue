@@ -9,9 +9,9 @@
         </div>
     </div>
     <div v-if="results.Search != null" class="d-flex justify-center align-center ma-8">
-        <v-btn variant="plain" icon="mdi-menu-left" :disabled="route.query.p == 1" @click="search(query, parseInt(route.query.p) - 1)"></v-btn>
+        <v-btn variant="plain" icon="mdi-menu-left" :disabled="route.query.p == 1" @click="search(route.query.q, parseInt(route.query.p) - 1)"></v-btn>
         <div class="font-weight-light">Page {{ route.query.p }}</div>
-        <v-btn variant="plain" icon="mdi-menu-right" :disabled="parseInt(results.totalResults) / parseInt(route.query.p) < 10" @click="search(query, parseInt(route.query.p) + 1)"></v-btn>
+        <v-btn variant="plain" icon="mdi-menu-right" :disabled="parseInt(results.totalResults) / parseInt(route.query.p) < 10" @click="search(route.query.q, parseInt(route.query.p) + 1)"></v-btn>
     </div>
 </template>
 
@@ -30,9 +30,9 @@ if (route.query.q) {
 }
 
 // Performs new search when page changes
-watch(() => route.query.p, () => {
-    if (route.query.p) {
-        search(query.value, route.query.p)
+watch(() => route.query, () => {
+    if (route.query.p && route.query.q) {
+        search(route.query.q, route.query.p)
     }
     else {
         results.value = {}

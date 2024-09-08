@@ -1,6 +1,6 @@
 <template>
     <div class="mx-4 my-16 d-flex flex-wrap justify-center">
-        <img :src="movie.Poster" class="ma-4" style="box-shadow: 3px 3px 8px black;">
+        <img :src="movie.Poster == 'N/A' ? '/src/assets/unavailable.png' : movie.Poster" class="ma-4" style="box-shadow: 3px 3px 8px black; max-width:300px">
         <div class="ma-4 shadow">
             <div class="d-flex">
                 <h1>{{ movie.Title }} ({{ movie.Year }})</h1>
