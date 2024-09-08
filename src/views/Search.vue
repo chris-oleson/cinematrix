@@ -29,8 +29,15 @@ if (route.query.q) {
     search(route.query.p)
 }
 
-watch(() => route.fullPath, () => {
-    search(route.query.p)
+// Performs new search when page changes
+watch(() => route.query.p, () => {
+    if (route.query.p) {
+        search(route.query.p)
+    }
+    else {
+        results.value = {}
+        query.value = ''
+    }
 })
 
 async function search(pageNumber) {
