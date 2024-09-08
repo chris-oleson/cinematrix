@@ -4,7 +4,7 @@
         <v-card-text v-else-if="error && route.query.t" class="text-error pa-0 mt-4">{{ errorMessage }}</v-card-text>
         <template v-else>
             <v-text-field id="username" variant="underlined" label="Username" v-model="username" :error="error"/>
-            <v-text-field :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'" variant="underlined" label="Password" :type="showPassword ? 'text' : 'password'" v-model="password" :error="error" @click:append="showPassword = !showPassword" @keyup.enter="login"/>
+            <v-text-field id="password" :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'" variant="underlined" label="Password" :type="showPassword ? 'text' : 'password'" v-model="password" :error="error" @click:append="showPassword = !showPassword" @keyup.enter="login"/>
             <v-card-text v-if="error" class="text-error pa-0">{{ errorMessage }}</v-card-text>
             <v-btn width="200" rounded="0" variant="outlined" class="bg-transparent mt-4" @click="login">Log In</v-btn>
             <v-btn v-if="errorMessage == 'This account has not been verified'" width="200" size="small" variant="plain" class="font-weight-light mt-4" @click="resend">Resend Verification</v-btn>

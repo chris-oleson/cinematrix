@@ -22,3 +22,7 @@ If you'd like to host this project yourself, use the following instructions:
 
 - For the database, use the file in this repository titled cinematrix-db-schema.sql.
     - Import the schema into a MySQL database server and you should be all set.
+
+- To run end-to-end tests, open the cypress.config.js file in the frontend repository.
+    - Set the baseUrl variable to the frontend domain you want to test.
+    - Use the command "npx cypress run", assuming you are using npm.
