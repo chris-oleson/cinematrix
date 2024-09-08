@@ -33,6 +33,7 @@ if (route.query.q) {
 // Performs new search when page changes
 watch(() => route.query, () => {
     if (route.query.p && route.query.q) {
+        query.value = route.query.q
         search(route.query.q, route.query.p)
     }
     else {

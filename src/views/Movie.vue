@@ -1,7 +1,7 @@
 <template>
     <div class="mx-4 my-16 d-flex flex-wrap justify-center">
         <img :src="movie.Poster == 'N/A' ? noImage : movie.Poster" class="ma-4" style="box-shadow: 3px 3px 8px black; max-width:300px">
-        <div class="ma-4 shadow">
+        <div class="ma-4 shadow" style="max-width:700px">
             <div class="d-flex">
                 <h1>{{ movie.Title }} ({{ movie.Year }})</h1>
                 <v-tooltip :text="getTooltip" content-class="bg-transparent" offset="0">
@@ -13,7 +13,7 @@
                 </v-tooltip>
             </div>
             
-            <div class="my-4" style="max-width:700px">{{ movie.Plot }}</div>
+            <div class="my-4">{{ movie.Plot }}</div>
 
             <div class="d-flex">
                 <div class="font-weight-bold mr-6">
@@ -22,7 +22,7 @@
                     <div>Actors:</div>
                     <div>Runtime:</div>
                     <div>Rated:</div>
-                    <div>Language:</div>
+                    <div>Genre:</div>
                 </div>
                 <div>
                     <div>{{ movie.Director }}</div>
@@ -30,7 +30,7 @@
                     <div>{{ movie.Actors }}</div>
                     <div>{{ movie.Runtime }}</div>
                     <div>{{ movie.Rated }}</div>
-                    <div>{{ movie.Language }}</div>
+                    <div>{{ movie.Genre }}</div>
                 </div>
             </div>
         </div>
