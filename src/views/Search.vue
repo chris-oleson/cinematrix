@@ -17,6 +17,7 @@
             <div class="font-weight-light">Page {{ route.query.p }}</div>
             <v-btn variant="plain" icon="mdi-menu-right" :disabled="parseInt(results.totalResults) / parseInt(route.query.p) < 10" @click="search(route.query.q, parseInt(route.query.p) + 1)"></v-btn>
         </div>
+        <div v-if="results.Error != null" class="text-center font-weight-light">No results were found</div>
     </template>
 </template>
 
@@ -29,7 +30,7 @@ const route = useRoute()
 const router = useRouter()
 
 const loading = ref(false)
-const query = ref(route.query.q)
+const query = ref(route.query.q ? route.query.q : '')
 const results = ref({})
 
 if (route.query.q) {
