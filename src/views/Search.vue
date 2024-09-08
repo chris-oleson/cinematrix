@@ -1,6 +1,6 @@
 <template>
     <div class="text-center ma-8">
-        <v-text-field v-model="query" variant="solo" theme="light" hide-details label="Search movies" append-inner-icon="mdi-magnify" style="box-shadow: 3px 3px 8px black;" @keyup.enter="search(1)" @click:append-inner="search(1)" class="mx-auto" max-width="700px"></v-text-field>
+        <v-text-field v-model="query" variant="solo" theme="light" hide-details label="Search movies" append-inner-icon="mdi-magnify" style="box-shadow: 3px 3px 8px black;" @keyup.enter="search(query, 1)" @click:append-inner="search(query, 1)" class="mx-auto" max-width="700px"></v-text-field>
     </div>
     <div class="mx-8 d-flex flex-wrap">
         <div v-for="(movie, i) in results.Search" v-bind:key="i" class="ma-4" style="max-width: 150px">
@@ -9,9 +9,9 @@
         </div>
     </div>
     <div v-if="results.Search != null" class="d-flex justify-center align-center ma-8">
-        <v-btn variant="plain" icon="mdi-menu-left" :disabled="route.query.p == 1" @click="search(parseInt(route.query.p) - 1)"></v-btn>
+        <v-btn variant="plain" icon="mdi-menu-left" :disabled="route.query.p == 1" @click="search(query, parseInt(route.query.p) - 1)"></v-btn>
         <div class="font-weight-light">Page {{ route.query.p }}</div>
-        <v-btn variant="plain" icon="mdi-menu-right" :disabled="parseInt(results.totalResults) / parseInt(route.query.p) < 10" @click="search(parseInt(route.query.p) + 1)"></v-btn>
+        <v-btn variant="plain" icon="mdi-menu-right" :disabled="parseInt(results.totalResults) / parseInt(route.query.p) < 10" @click="search(query, parseInt(route.query.p) + 1)"></v-btn>
     </div>
 </template>
 
@@ -26,13 +26,13 @@ const query = ref(route.query.q)
 const results = ref({})
 
 if (route.query.q) {
-    search(route.query.p)
+    search(route.query.q, route.query.p)
 }
 
 // Performs new search when page changes
 watch(() => route.query.p, () => {
     if (route.query.p) {
-        search(route.query.p)
+        search(query.value, route.query.p)
     }
     else {
         results.value = {}
@@ -40,11 +40,11 @@ watch(() => route.query.p, () => {
     }
 })
 
-async function search(pageNumber) {
-    router.push(`search?q=${query.value}&p=${pageNumber}`)
+async function search(query, pageNumber) {
+    router.push(`search?q=${query}&p=${pageNumber}`)
     const resp = await axios.get('omdb/search', {
         params: {
-            query: route.query.q,
+            query: query,
             page: pageNumber
         }
     })
