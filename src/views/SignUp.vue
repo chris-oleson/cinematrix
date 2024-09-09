@@ -23,8 +23,11 @@ const showPassword = ref(false)
 const showConfirmPassword = ref(false)
 const error = ref(false)
 const errorMessage = ref('')
-const accountCreated = ref(false)
 const loading = ref(false)
+import { useRouter } from 'vue-router'
+const router = useRouter()
+import { useStore } from '/src/pinia'
+const store = useStore()
 
 onMounted(() => {
     document.getElementById('name').focus()
@@ -42,8 +45,8 @@ function createAccount() {
             password: password.value,
         })
         .then(() => {
-            accountCreated.value = true
-            loading.value = false
+            store.isLoggedIn = true
+            router.push('/')
         })
         .catch((err) => {
             errorMessage.value = err.response.data
