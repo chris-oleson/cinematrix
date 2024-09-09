@@ -39,11 +39,10 @@ async function login() {
     loading.value = true
     error.value = false
     try {
-        const resp = await axios.post('/auth/login', {
+        await axios.post('/auth/login', {
             name: username.value,
             password: password.value,
         })
-        store.favorites = resp.data
         store.isLoggedIn = true
         router.push('/favorites?p=1')
     }

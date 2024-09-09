@@ -1,6 +1,6 @@
 <template>
     <div class="text-center ma-8">
-        <v-text-field v-model="query" variant="solo" theme="light" hide-details label="Search movies" append-inner-icon="mdi-magnify" style="box-shadow: 3px 3px 8px black;" @keyup.enter="search(query, 1)" @click:append-inner="search(query, 1)" class="mx-auto" max-width="700px"></v-text-field>
+        <v-text-field id="search" v-model="query" variant="solo" theme="light" hide-details label="Search movies" append-inner-icon="mdi-magnify" style="box-shadow: 3px 3px 8px black;" @keyup.enter="search(query, 1)" @click:append-inner="search(query, 1)" class="mx-auto" max-width="700px"></v-text-field>
     </div>
     <div v-if="loading" class="text-center mt-16">
         <v-progress-circular indeterminate></v-progress-circular>

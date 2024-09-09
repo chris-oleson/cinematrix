@@ -25,6 +25,10 @@ import { useRouter, useRoute } from 'vue-router'
 const router = useRouter()
 const route = useRoute()
 
+axios.get('/favorites').then((resp) => {
+    store.favorites = resp.data
+})
+
 function goToPage(page) {
     router.push(`/favorites?p=${page}`)
 }
