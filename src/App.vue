@@ -9,6 +9,8 @@
 
 <script setup>
 import axios from 'axios'
+import { useRouter } from 'vue-router'
+const router = useRouter()
 import { useTheme } from 'vuetify'
 const theme = useTheme()
 import { useStore } from '/src/pinia'

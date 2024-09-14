@@ -1,6 +1,6 @@
 describe('the app', () => {
     it('logs in', () => {
-        cy.login()
+        cy.visit('/').login()
     })
 
     it('searches', () => {
@@ -11,14 +11,14 @@ describe('the app', () => {
     })
     
     it('favorites', () => {
-        cy.login()
+        cy.visit('/').login()
         cy.visit('/movie/tt6868278')
         cy.get('.mdi-star-outline').click()
         cy.get('.mdi-star')
     })
 
     it('unfavorites', () => {
-        cy.login()
+        cy.visit('/').login()
         cy.get('.mdi-menu-right').click()
         cy.get(':nth-child(2) > .text-center > .v-btn > .v-btn__content > .mdi-star').click()
         cy.contains('The Test Case').should('not.exist')

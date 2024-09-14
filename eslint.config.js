@@ -1,14 +1,21 @@
 import pluginJs from "@eslint/js";
 import pluginVue from "eslint-plugin-vue";
-import pluginCypress from "eslint-plugin-cypress";
+import globals from "globals";
 
 export default [
     {
-        files: ["**/*.{js,mjs,cjs,vue}"]
+        ignores: ["cypress/*"],
+    },
+    {
+        files: ["**/*.{js,vue}"]
     },
     pluginJs.configs.recommended,
-    pluginCypress,
     ...pluginVue.configs["flat/essential"],
+    {
+        languageOptions: {
+            globals: globals.browser,
+        }
+    },
     {
         rules: {
             'vue/multi-word-component-names': 0,
