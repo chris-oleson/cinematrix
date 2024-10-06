@@ -1,6 +1,6 @@
 // Vue
 import { createApp } from 'vue'
-import App from '/src/App'
+import App from './App'
 const app = createApp(App)
 
 // Pinia
@@ -11,11 +11,11 @@ pinia.use(piniaPluginPersistedstate)
 app.use(pinia)
 
 // Vue Router
-import { router } from '/src/router'
+import { router } from './router'
 app.use(router)
 
 // Vuetify
-import vuetify from '/src/vuetify'
+import vuetify from './vuetify'
 app.use(vuetify)
 
 // Axios

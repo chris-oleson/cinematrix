@@ -5,7 +5,6 @@
             <img :src=movie.poster width="100%" draggable="false" class="poster" @click="router.push('/movie/' + movie.imdb_id)">
             <div class="text-center shadow">
                 {{ movie.title }} ({{ movie.year }})
-                <v-btn icon="mdi-star" variant="plain" density="compact" @click="unfavorite(movie.imdb_id)"></v-btn>
             </div>
         </div>
     </div>
@@ -39,12 +38,6 @@ function getSlice(array) {
     let end = 10 + start
 
     return array.slice(start, end)
-}
-
-async function unfavorite(id) {
-    await axios.delete('favorites/' + id)
-    const resp = await axios.get('/favorites')
-    store.favorites = resp.data
 }
 </script>
 
