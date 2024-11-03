@@ -8,6 +8,10 @@ export default defineConfig({
         vuetify(),
     ],
 
+    server: {
+        port: 8080,
+    },
+
     resolve: {
         extensions: ['.js', '.vue'],
     },

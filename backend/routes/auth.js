@@ -1,8 +1,15 @@
 import { Router } from 'express'
 const router = Router()
 import bcrypt from 'bcryptjs'
-import mysql from 'mysql2/promise'
-import database from '../database.js'
+import sqlite3 from 'sqlite3'
+import { open } from 'sqlite'
+
+async function createConnection() {
+    return open({
+        filename: './sqlite.db',
+        driver: sqlite3.Database
+    });
+}
 
 // All endpoints on this route are public. You have been warned.
 
@@ -16,7 +23,7 @@ router.post('/check-session', (req, res) => {
 })
 
 router.post('/login', async (req, res) => {
-    const db = await mysql.createConnection(database)
+    const db = await createConnection()
     const user = await checkName(req.body.name, db)
     if (!user) {
         res.status(404).send("Incorrect username or password")
@@ -27,8 +34,8 @@ router.post('/login', async (req, res) => {
     else {
         req.session.user = user.id
         res.sendStatus(200)
-        db.end()
     }
+    await db.close()
 })
 
 router.post('/create', async (req, res) => {
@@ -36,19 +43,18 @@ router.post('/create', async (req, res) => {
         res.status(400).send('All fields are required')
     }
     else {
-        const db = await mysql.createConnection(database)
-        const [existingUser] = await db.query('SELECT id FROM users WHERE name = ?', [req.body.name])
-        if (existingUser.length) {
+        const db = await createConnection()
+        const existingUser = await db.get('SELECT id FROM users WHERE name = ?', [req.body.name])
+        if (existingUser) {
             res.status(400).send('This username is already registered')
         }
         else {
             const salt = bcrypt.genSaltSync(10)
             const encryptedPassword = bcrypt.hashSync(req.body.password, salt)
-            await db.query("INSERT INTO users VALUES (NULL, ?, ?)", [req.body.name.toLowerCase(), encryptedPassword])
+            await db.run("INSERT INTO users VALUES (NULL, ?, ?)", [req.body.name.toLowerCase(), encryptedPassword])
             res.sendStatus(200)
         }
-
-        db.end()
+        await db.close()
     }
 })
 
@@ -58,15 +64,15 @@ router.post('/logout', (req, res) => {
 })
 
 async function passwordIsValid(id, password, db) {
-    const [users] = await db.query("SELECT * FROM users WHERE id = ?", [id])
-    return (users.length && bcrypt.compareSync(password, users[0].password))
+    const user = await db.get("SELECT * FROM users WHERE id = ?", [id])
+    return (user && bcrypt.compareSync(password, user.password))
 }
 
 // Returns user object if name exists
 async function checkName(name, db) {
-    const [users] = await db.query('SELECT * FROM users WHERE name = ?', [name])
-    if (users.length) {
-        return users[0]
+    const user = await db.get('SELECT * FROM users WHERE name = ?', [name])
+    if (user) {
+        return user
     }
     else {
         return null
