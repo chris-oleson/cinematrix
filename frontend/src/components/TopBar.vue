@@ -10,7 +10,6 @@
         <!-- Desktop display -->
         <template v-if="!xs">
             <v-btn class="font-weight-light shadow" variant="plain" to="/">Home</v-btn>
-            <v-btn class="font-weight-light shadow" variant="plain" to="/search">Search</v-btn>
             <v-btn v-if="store.isLoggedIn" class="font-weight-light shadow" variant="plain" to="/favorites?p=1">Favorites</v-btn>
             <v-btn v-if="store.isLoggedIn" class="font-weight-light mr-4 shadow" variant="plain" @click="logOut()">Log Out</v-btn>
             <v-btn v-if="!store.isLoggedIn" class="font-weight-light shadow" variant="plain" to="/login">Log In</v-btn>
