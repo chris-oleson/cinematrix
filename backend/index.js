@@ -37,6 +37,10 @@ app.use(
     })
 )
 
+app.get('/status', (req, res) => {
+    res.sendStatus(200)
+})
+
 // Authenticates requests
 app.use(checkAuthenticated)
 function checkAuthenticated(req, res, next) {
