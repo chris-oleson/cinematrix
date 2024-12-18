@@ -5,7 +5,7 @@ import { open } from 'sqlite'
 
 async function createConnection() {
     return open({
-        filename: './sqlite.db',
+        filename: './storage/sqlite.db',
         driver: sqlite3.Database
     });
 }
