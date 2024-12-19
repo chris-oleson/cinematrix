@@ -1,6 +1,8 @@
 import express from 'express'
 import session from 'express-session'
 import { rateLimit } from 'express-rate-limit'
+import sqlite3 from 'sqlite3'
+import { open } from 'sqlite'
 const app = express()
 
 // CORS stuff
@@ -43,7 +45,11 @@ app.get('/status', (req, res) => {
 
 // Authenticates requests
 app.use(checkAuthenticated)
-function checkAuthenticated(req, res, next) {
+async function checkAuthenticated(req, res, next) {
+    req.database = await open({
+        filename: './storage/sqlite.db',
+        driver: sqlite3.Database
+    })
     if (req.session.user || req.path.slice(0, 5) == '/auth' || req.path.slice(0, 5) == '/omdb') {
         next()
     } else {
